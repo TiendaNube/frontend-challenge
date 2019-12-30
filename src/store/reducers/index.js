@@ -1,8 +1,10 @@
 import combineReducers from "../conbineReducers";
 import productReducer from "./productReducer";
+import loginReducers from "./loginReducer";
 
 const reducers = combineReducers({
-  productReducer
+  productStore: productReducer,
+  loginStore: loginReducers
 });
 
 export { reducers };

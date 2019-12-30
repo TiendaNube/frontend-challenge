@@ -1,12 +1,13 @@
+import { chain } from "lodash";
+
 const combineReducers = reducer => {
   return (state = {}, action) => {
-    const keys = Object.keys(reducer);
-    const nextReducers = {};
-    for (let i = 0; i < keys.length; i++) {
-      const invoke = reducer[keys[i]](state[keys[i]], action);
-      nextReducers[keys[i]] = invoke;
-    }
-    return nextReducers;
+    return chain(Object.keys(reducer))
+      .reduce((init, next) => {
+        init[next] = reducer[next](state[next], action);
+        return init;
+      }, {})
+      .value();
   };
 };
 

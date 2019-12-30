@@ -1,11 +1,10 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 
 import PropTypes from "prop-types";
 import Context from "./context";
-import { STORE } from "./constants/storageKeys";
 import { initStoreAction } from "./actions/actionCreators";
 
-const Provider = ({ children, reducer }) => {
+const Provider = ({ children, reducer, persist }) => {
   const [store, dispatch] = useReducer(reducer);
 
   const [state, setState] = useState({ isLoaded: false });
@@ -13,7 +12,7 @@ const Provider = ({ children, reducer }) => {
   useEffect(() => {
     dispatch(initStoreAction());
     setState({ isLoaded: true });
-  }, []);
+  }, [dispatch]);
 
   return (
     <Context.Provider displayName="Main Context" value={{ dispatch, store }}>
@@ -28,17 +27,11 @@ Provider.propTypes = {
     PropTypes.node
   ]).isRequired,
   reducer: PropTypes.func.isRequired,
-  persistConfig: PropTypes.shape({
-    key: PropTypes.string,
-    storage: PropTypes.shape(window.localStorage)
-  })
+  persist: PropTypes.bool
 };
 
 Provider.defaultProps = {
-  persistConfig: {
-    key: STORE,
-    localStorage: window.localStorage
-  }
+  persist: false
 };
 
 export default Provider;

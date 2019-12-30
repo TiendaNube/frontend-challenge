@@ -3,12 +3,14 @@ import { map, filter } from "lodash";
 import {
   ADD_PRODUCT,
   UPDATE_PRODUCT,
-  DELETE_PRODUCT,
-  RESET_PRODUCTS
+  DELETE_PRODUCT
 } from "store/constants/actionTypes";
+import { STORE } from "store/constants/storageKeys";
+
+const storeStorage = JSON.parse(localStorage.getItem(STORE));
 
 const initialState = {
-  products: []
+  products: storeStorage ? storeStorage.productStore.products : []
 };
 
 const productReducer = (state = initialState, action) => {

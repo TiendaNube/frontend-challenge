@@ -155,7 +155,7 @@ class ProductList extends Component {
   }
 }
 
-const mapStateToProps = ({ productReducer: { products } }) => ({ products });
+const mapStateToProps = ({ productStore: { products } }) => ({ products });
 
 const mapDispatchToProps = dispatch => ({
   removeProduct(product) {
