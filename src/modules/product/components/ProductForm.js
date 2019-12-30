@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import isEmpty from "lodash/isEmpty";
+import { isEmpty, isUndefined, find } from "lodash/";
 
 import { Grid } from "components/grid";
 import { Dropzone } from "components/dropzone";
@@ -7,77 +7,64 @@ import { InputGroup, Editor, InputGroupCurrencyIcon } from "components/input";
 import { Button } from "components/button";
 import {
   addProductAction,
-  updateProductAction
+  updateProductAction,
+  deleteProductAction
 } from "store/actions/actionCreators";
 import { connect } from "store/connect";
 
+const emptyProduct = {
+  images: [],
+  name: "",
+  description: "",
+  promotionalPrice: "",
+  price: "",
+  stock: ""
+};
+
 class ProductForm extends Component {
-  state = {
-    inputValidation: {
-      name: false,
-      description: false,
-      price: false,
-      stock: false
-    },
-    images: [],
-    name: "pelota",
-    description: "<p>pelota cuadrada</p>",
-    promotionalPrice: "10000.00",
-    price: "100.00",
-    stock: "100"
-  };
+  constructor(props) {
+    super(props);
+    const {
+      products,
+      match: {
+        params: { id }
+      }
+    } = props;
+    this.state = {
+      inputValidation: {
+        name: false,
+        description: false,
+        price: false,
+        stock: false
+      },
+      product: find(products, { id }) || emptyProduct
+    };
+  }
 
   handleAddProduct = () => {
-    const {
-      images,
-      name,
-      description,
-      promotionalPrice,
-      price,
-      stock
-    } = this.state;
-    const product = {
-      images,
-      name,
-      description,
-      promotionalPrice,
-      price,
-      stock
-    };
+    const { product } = this.state;
+
     const { addProduct } = this.props;
     addProduct(product);
-    this.setState({
-      images: [],
-      name: "",
-      description: "",
-      promotionalPrice: "",
-      price: "",
-      stock: ""
-    });
+    this.backToListing();
   };
 
   handleUpdateProduct = () => {
-    const {
-      images,
-      name,
-      description,
-      promotionalPrice,
-      price,
-      stock
-    } = this.state;
+    const { product } = this.state;
     const { updateProduct } = this.props;
 
-    updateProduct({
-      images,
-      name,
-      description,
-      promotionalPrice,
-      price,
-      stock
-    });
+    updateProduct(product);
+    this.backToListing();
   };
 
-  handleRemoveProduct = () => {};
+  handleRemoveProduct = () => {
+    const {
+      product: { id }
+    } = this.state;
+    const { removeProduct } = this.props;
+    removeProduct({ id });
+    this.backToListing();
+  };
 
   inputChange = e => {
     const { value, name } = e.target;
@@ -85,9 +72,9 @@ class ProductForm extends Component {
   };
 
   onChange = (name, value) => {
-    const state = this.state;
-    state[name] = value;
-    this.setState(state);
+    this.setState(prevState => ({
+      product: { ...prevState.product, [name]: value }
+    }));
   };
 
   backToListing = () => {
@@ -115,7 +102,9 @@ class ProductForm extends Component {
   }
 
   get renderActionButtons() {
-    const { id } = this.state;
+    const {
+      product: { id }
+    } = this.state;
     if (id) {
       return (
         <React.Fragment>
@@ -154,22 +143,17 @@ class ProductForm extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   const { params } = this.props.match;
-  // }
-
   render() {
-    console.log(this.props);
+    const { product, inputValidation } = this.state;
+
     const {
-      id,
-      description,
-      name,
-      price,
-      stock,
-      promotionalPrice,
       images,
-      inputValidation
-    } = this.state;
+      name,
+      description,
+      price,
+      promotionalPrice,
+      stock
+    } = product;
 
     return (
       <div>
@@ -254,7 +238,7 @@ class ProductForm extends Component {
   }
 }
 
-const mapStateToProps = () => {};
+const mapStateToProps = ({ productReducer: { products } }) => ({ products });
 
 const mapDispatchToProps = dispatch => ({
   addProduct(product) {
@@ -262,6 +246,9 @@ const mapDispatchToProps = dispatch => ({
   },
   updateProduct(product) {
     dispatch(updateProductAction(product));
+  },
+  removeProduct(product) {
+    dispatch(deleteProductAction(product));
   }
 });
 
