@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { isEmpty, isUndefined, find } from "lodash/";
+import { isEmpty, find } from "lodash/";
 
 import { Grid } from "components/grid";
 import { Dropzone } from "components/dropzone";
