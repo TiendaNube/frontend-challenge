@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { useHistory, useLocation, useParams } from "react-router-dom";
 import Context from "./context";
 
 const connect = (mapState, mapDispatch) => {
