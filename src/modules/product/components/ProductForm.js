@@ -34,6 +34,7 @@ class ProductForm extends Component {
       inputValidation: {
         name: false,
         description: false,
+        promotionalPrice: false,
         price: false,
         stock: false
       },
@@ -42,6 +43,7 @@ class ProductForm extends Component {
   }
 
   handleAddProduct = () => {
+    if (!this.validateForm()) return;
     const { product } = this.state;
 
     const { addProduct } = this.props;
@@ -50,6 +52,7 @@ class ProductForm extends Component {
   };
 
   handleUpdateProduct = () => {
+    if (!this.validateForm()) return;
     const { product } = this.state;
     const { updateProduct } = this.props;
 
@@ -135,7 +138,12 @@ class ProductForm extends Component {
           <Button size="small" onClick={this.handleAddProduct}>
             SAVE PRODUCT
           </Button>
-          <Button size="small" className="ml--lg" outline>
+          <Button
+            size="small"
+            className="ml--lg"
+            outline
+            onClick={this.backToListing}
+          >
             CANCEL
           </Button>
         </React.Fragment>
