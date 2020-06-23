@@ -23,7 +23,7 @@ Not required but desireable:
 
 ---
 
-Once you've finished the project you can mail us with the source code to `wmota@tiendanube.com` and `ignacio@tiendanube.com`
+Once you've finished the project you can mail us with the source code to `wmota@tiendanube.com` and `nicolas.croce@tiendanube.com`
 
 ## Available Scripts
 
