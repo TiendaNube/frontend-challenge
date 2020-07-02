@@ -1,7 +1,4 @@
-import ListItem from './ListItem';
-import ListItemLink from './ListItemLink';
+import ListItem from "./ListItem";
+import ListItemLink from "./ListItemLink";
 
-export {
-  ListItem,
-  ListItemLink
-};
+export { ListItem, ListItemLink };

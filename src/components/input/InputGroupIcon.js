@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import InputBlockIcon from './InputBlockIcon';
-import Input from './Input';
+import React, { Component } from "react";
+import InputBlockIcon from "./InputBlockIcon";
+import Input from "./Input";
 
 class InputGroupIcon extends Component {
   render() {
@@ -9,7 +9,14 @@ class InputGroupIcon extends Component {
 
     return (
       <InputBlockIcon {...props}>
-        <Input name={name} id={name} placeholder={placeholder} type={type} onChange={onChange} value={value}/>
+        <Input
+          name={name}
+          id={name}
+          placeholder={placeholder}
+          type={type}
+          onChange={onChange}
+          value={value}
+        />
       </InputBlockIcon>
     );
   }

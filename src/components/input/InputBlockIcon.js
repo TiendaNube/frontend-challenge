@@ -1,35 +1,48 @@
-import React, { Component } from 'react';
-import classname from 'classname';
-import InputBlock from './InputBlock';
+import React, { Component } from "react";
+import classname from "classname";
+import InputBlock from "./InputBlock";
 
 class InputBlockIcon extends Component {
   state = {
-    focus: false
-  }
-  
+    focus: false,
+  };
+
   onFocus = () => {
     this.setState({
-      focus: true
+      focus: true,
     });
-  }
+  };
 
   onBlur = () => {
     this.setState({
-      focus: false
+      focus: false,
     });
-  }
+  };
 
   render() {
-    const { placeholder, type, onChange, value, className, icon, children, ...props } = this.props;
+    const {
+      placeholder,
+      type,
+      onChange,
+      value,
+      className,
+      icon,
+      children,
+      ...props
+    } = this.props;
     const { name } = this.props;
     const { focus } = this.state;
     const classComponent = classname(className, {
-      'focus': focus
+      focus: focus,
     });
 
     return (
       <InputBlock className={classComponent} {...props}>
-        <div className="input--group--block" onFocus={ this.onFocus } onBlur={ this.onBlur } >
+        <div
+          className="input--group--block"
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+        >
           <div className="icon"> {icon} </div>
           {children}
         </div>

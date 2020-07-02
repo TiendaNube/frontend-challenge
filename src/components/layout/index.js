@@ -1,7 +1,4 @@
-import External from './External';
-import Logged from './Logged';
+import External from "./External";
+import Logged from "./Logged";
 
-export {
-  External,
-  Logged
-};
+export { External, Logged };

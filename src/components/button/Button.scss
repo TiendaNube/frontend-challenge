@@ -5,44 +5,41 @@
   border-radius: $button-radius;
   padding: 0 10px;
   min-height: 35px;
-  outline:0;
+  outline: 0;
   white-space: nowrap;
   cursor: pointer;
   font-weight: lighter;
 
   .text {
     display: inline-block;
-    
   }
-
 
   &.button--small {
     height: 20px;
     font-size: 12px;
   }
 
-  &[class*="button--icon"].button--clamp .text{
+  &[class*="button--icon"].button--clamp .text {
     width: calc(100% - 25px);
     display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-
   &:focus {
     box-shadow: 0px 0px 0px 2px transparentize($primary, 0.6);
-    outline:0;
+    outline: 0;
   }
 
   &.button--block {
     width: 100%;
   }
 
-  &.button--icon__right .text{
+  &.button--icon__right .text {
     margin-right: 10px;
   }
 
-  &.button--icon__left .text{
+  &.button--icon__left .text {
     margin-left: 10px;
   }
 
@@ -58,18 +55,18 @@
     padding: 20px;
   }
 
-  &.button--secondary{
+  &.button--secondary {
     background: $secondary;
     border-color: $secondary;
   }
 
-  &.button--danger{
+  &.button--danger {
     color: $white;
     background: $danger;
     border-color: $danger;
   }
 
-  &.button--inverse{
+  &.button--inverse {
     background: $inverse;
     border-color: $inverse;
   }
@@ -79,14 +76,14 @@
     border-color: transparent;
   }
 
-  &.button--outline{
-    background: transparent;    
+  &.button--outline {
+    background: transparent;
     color: $primary;
 
-    &.button--secondary{
+    &.button--secondary {
       color: $secondary;
     }
-    &.button--inverse{
+    &.button--inverse {
       color: $inverse;
     }
   }

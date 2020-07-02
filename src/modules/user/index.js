@@ -1,5 +1,3 @@
-import Login from './components/Login';
+import Login from "./components/Login";
 
-export {
-  Login
-};
+export { Login };

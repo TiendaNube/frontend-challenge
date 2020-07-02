@@ -1,4 +1,3 @@
-
 .check--container {
   display: block;
   position: relative;
@@ -21,25 +20,25 @@
     width: 20px;
     background-color: #eee;
   }
-  
+
   &:hover input ~ .check {
     background-color: $gray-dark;
   }
-  
+
   input:checked ~ .check {
     background-color: $primary;
   }
-  
+
   .check:after {
     content: "";
     position: absolute;
     display: none;
   }
-  
+
   input:checked ~ .check:after {
     display: block;
   }
-  
+
   .check:after {
     left: 7px;
     top: 4px;

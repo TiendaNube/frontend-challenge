@@ -4,7 +4,7 @@ $pad: 30px;
   margin: 10px 20px;
   padding: 15px $pad;
   background: $white;
-  
+
   &:after {
     /* Or @extend clearfix */
     content: "";
@@ -26,7 +26,7 @@ $pad: 30px;
   }
 }
 
-[class*='col-'] {
+[class*="col-"] {
   float: left;
   padding-right: $pad;
   .grid &:last-of-type {
@@ -52,7 +52,7 @@ $pad: 30px;
 /* Opt-in outside padding */
 .grid-pad {
   padding: $pad 0 $pad $pad;
-  [class*='col-']:last-of-type {
+  [class*="col-"]:last-of-type {
     padding-right: $pad;
   }
 }
