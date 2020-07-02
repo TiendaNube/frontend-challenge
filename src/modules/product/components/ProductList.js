@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import isEmpty from "lodash/isEmpty";
+import { isEmpty } from "lodash";
 
 import { Grid } from "components/grid";
 import { Table } from "components/table";
