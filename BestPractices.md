@@ -11,3 +11,5 @@
 . Is recommended to refactor components in order to make them Stateless, this could reduce code and improve performance (better than use PureComponent)
 . Is recommended to use 'react-i18next' library to handle texts, and make the app useful to more than one language
 . Is recommended to delete unnecessary variables and functions like componentDidMount() in "ProductForm.js"
+. Is recommended to create spellchecker file in order to alert misspelled words
+. Is recommended to set more accessibility labels in components in order to make easier automation test
