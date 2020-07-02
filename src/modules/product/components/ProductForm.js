@@ -10,7 +10,7 @@ import {
   updateProductAction,
   deleteProductAction,
 } from "store/actions/ActionCreators";
-import { connect } from "store/Connect";
+import { setStorage } from "store/localStorage/SetStorage";
 
 const initialProduct = {
   images: [],
@@ -156,10 +156,6 @@ class ProductForm extends Component {
     }
   }
 
-  componentDidMount() {
-    const { params } = this.props.match;
-  }
-
   render() {
     const { product, inputValidation } = this.state;
 
@@ -269,4 +265,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductForm);
+export default setStorage(mapStateToProps, mapDispatchToProps)(ProductForm);
