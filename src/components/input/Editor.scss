@@ -1,4 +1,4 @@
-@import '~react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+@import "~react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 .editor {
   border: 1px solid $gray-input;
@@ -7,14 +7,14 @@
   border-radius: $input-radius;
   .rdw-editor-main {
     background: $white;
-    border: 1px solid $gray-input;    
+    border: 1px solid $gray-input;
     min-height: 200px;
   }
   .rdw-editor-toolbar {
-    border: 1px solid $gray-input;    
+    border: 1px solid $gray-input;
     padding: 0px;
   }
-  .rdw-inline-wrapper{
+  .rdw-inline-wrapper {
     margin: 0px;
   }
   .rdw-option-wrapper {

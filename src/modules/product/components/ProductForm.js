@@ -1,54 +1,106 @@
-import React, { Component } from 'react';
-import isEmpty from 'lodash/isEmpty';
+import React, { Component } from "react";
+import { isEmpty, find } from "lodash";
 
-import { Grid } from 'components/grid';
-import { Dropzone } from 'components/dropzone';
-import { InputGroup, Editor, InputGroupCurrencyIcon } from 'components/input';
-import { Button } from 'components/button';
+import { Grid } from "components/grid";
+import { Dropzone } from "components/dropzone";
+import { InputGroup, Editor, InputGroupCurrencyIcon } from "components/input";
+import { Button } from "components/button";
+import {
+  createProductAction,
+  updateProductAction,
+  deleteProductAction,
+} from "store/actions/ActionCreators";
+import { setStorage } from "store/localStorage/SetStorage";
+
+const initialProduct = {
+  images: [],
+  name: "",
+  description: "",
+  promotionalPrice: "",
+  price: "",
+  stock: "",
+};
 
 class ProductForm extends Component {
-  state = {
-    inputValidation: {
-      name: false,
-      description: false,
-      price: false,
-      stock: false
-    },
-    images: [],
-    name: '',
-    description: '',
-    promotionalPrice: '',
-    price: '',
-    stock: ''
+  constructor(props) {
+    super(props);
+    const {
+      products,
+      match: {
+        params: { id },
+      },
+    } = props;
+    this.state = {
+      inputValidation: {
+        name: false,
+        description: false,
+        promotionalPrice: false,
+        price: false,
+        stock: false,
+      },
+      product: find(products, { id }) || initialProduct,
+    };
+  }
+
+  handleCreateProdduct = () => {
+    if (this.validateForm()) {
+      const { product } = this.state;
+      const { addProduct } = this.props;
+
+      addProduct(product);
+      this.backToListing();
+    } else {
+      return;
+    }
   };
 
-  inputChange = e => {
+  handleUpdateProduct = () => {
+    if (this.validateForm()) {
+      const { product } = this.state;
+      const { updateProduct } = this.props;
+
+      updateProduct(product);
+      this.backToListing();
+    } else {
+      return;
+    }
+  };
+
+  handleRemoveProduct = () => {
+    const {
+      product: { id },
+    } = this.state;
+    const { removeProduct } = this.props;
+    removeProduct({ id });
+    this.backToListing();
+  };
+
+  inputChange = (e) => {
     const { value, name } = e.target;
     this.onChange(name, value);
-  }
+  };
 
-  onChange = (name, value )=> {
-    const state = this.state;
-    state[name] = value;
-    this.setState(state);
-  }
+  onChange = (name, value) => {
+    this.setState((prevState) => ({
+      product: { ...prevState.product, [name]: value },
+    }));
+  };
 
   backToListing = () => {
-    this.props.history.push('/products') 
-  }
+    this.props.history.push("/products");
+  };
 
   validateForm() {
     const state = this.state;
     let validate = true;
 
-    for(var key in state.inputValidation) {
-      if(state.inputValidation.hasOwnProperty(key)) {
-        const invalid = (isEmpty(state[key]) || state[key] === '<p></p>');
-    
+    for (var key in state.inputValidation) {
+      if (state.inputValidation.hasOwnProperty(key)) {
+        const invalid = isEmpty(state.product[key]);
         state.inputValidation[key] = invalid;
 
-        if(invalid) {
-          validate = false
+        if (invalid) {
+          validate = false;
         }
       }
     }
@@ -58,70 +110,136 @@ class ProductForm extends Component {
   }
 
   get renderActionButtons() {
-    const { id } = this.state;
-    if(id) {
+    const {
+      product: { id },
+    } = this.state;
+    if (id) {
       return (
         <React.Fragment>
-          <Button size="small">SAVE UPDATES</Button>
-          <Button size="small" type="danger" className="ml--lg">REMOVE</Button>
-          <Button size="small" onClick={this.backToListing} className="ml--lg" outline>CANCEL</Button>
+          <Button size="small" onClick={this.handleUpdateProduct}>
+            SAVE UPDATES
+          </Button>
+          <Button
+            size="small"
+            type="danger"
+            className="ml--lg"
+            onClick={this.handleRemoveProduct}
+          >
+            REMOVE
+          </Button>
+          <Button
+            size="small"
+            onClick={this.backToListing}
+            className="ml--lg"
+            outline
+          >
+            CANCEL
+          </Button>
         </React.Fragment>
-      )
+      );
     } else {
       return (
         <React.Fragment>
-          <Button size="small">SAVE PRODUCT</Button>
-          <Button size="small" className="ml--lg" outline>CANCEL</Button>
+          <Button size="small" onClick={this.handleCreateProdduct}>
+            SAVE PRODUCT
+          </Button>
+          <Button
+            size="small"
+            className="ml--lg"
+            outline
+            onClick={this.backToListing}
+          >
+            CANCEL
+          </Button>
         </React.Fragment>
-      )
+      );
     }
-  }
-  
-  componentDidMount() {
-    const { params } = this.props.match;
   }
 
   render() {
-    const { id, description, name, price, stock, promotionalPrice, images, inputValidation } = this.state;
+    const { product, inputValidation } = this.state;
+
+    const {
+      images,
+      name,
+      description,
+      price,
+      promotionalPrice,
+      stock,
+    } = product;
 
     return (
       <div>
-        <Grid transparent className='image--selection'>
+        <Grid transparent className="image--selection">
           <label>Fotos dos seus produtos</label>
-          <div className='col-1-4'>
-            <Dropzone value={images[0]} index={0} onDrop={this.dropImage}/>
+          <div className="col-1-4">
+            <Dropzone value={images[0]} index={0} onDrop={this.dropImage} />
           </div>
-          <div className='col-1-4'>
-            <Dropzone value={images[1]} index={1} onDrop={this.dropImage}/>
+          <div className="col-1-4">
+            <Dropzone value={images[1]} index={1} onDrop={this.dropImage} />
           </div>
-          <div className='col-1-4'>
-            <Dropzone value={images[2]} index={2} onDrop={this.dropImage}/>
+          <div className="col-1-4">
+            <Dropzone value={images[2]} index={2} onDrop={this.dropImage} />
           </div>
-          <div className='col-1-4'>
-            <Dropzone value={images[3]} index={3} onDrop={this.dropImage}/>
+          <div className="col-1-4">
+            <Dropzone value={images[3]} index={3} onDrop={this.dropImage} />
           </div>
         </Grid>
 
         <Grid block>
           <div>
-            <InputGroup value={name} validate={inputValidation} onChange={this.inputChange} label="Name" name="name" placeholder="Ex: Chaveiro de plástico de Budha"/>
-            <Editor value={description} validate={inputValidation} onChange={this.onChange} label="Description" name="description"/> 
+            <InputGroup
+              value={name}
+              validate={inputValidation}
+              onChange={this.inputChange}
+              label="Name"
+              name="name"
+              placeholder="Ex: Chaveiro de plástico de Budha"
+            />
+            <Editor
+              value={description}
+              validate={inputValidation}
+              onChange={this.onChange}
+              label="Description"
+              name="description"
+            />
           </div>
-
         </Grid>
 
-
         <Grid block>
-        <div className="col-1-4">
-            <InputGroupCurrencyIcon validate={inputValidation} value={price} onChange={this.inputChange} name="price" label="Original Price" icon="$" placeholder="0,00"/>
+          <div className="col-1-4">
+            <InputGroupCurrencyIcon
+              validate={inputValidation}
+              value={price}
+              onChange={this.inputChange}
+              name="price"
+              label="Original Price"
+              icon="$"
+              placeholder="0,00"
+            />
           </div>
 
           <div className="col-1-4">
-            <InputGroupCurrencyIcon validate={inputValidation} value={promotionalPrice} onChange={this.inputChange} name="promotionalPrice" label="Promocional Price" icon="$" placeholder="0,00"/>
+            <InputGroupCurrencyIcon
+              validate={inputValidation}
+              value={promotionalPrice}
+              onChange={this.inputChange}
+              name="promotionalPrice"
+              label="Promocional Price"
+              icon="$"
+              placeholder="0,00"
+            />
           </div>
-          
+
           <div className="col-1-4">
-            <InputGroup validate={inputValidation} value={stock} onChange={this.inputChange} type="number" name="stock" label="Stock"/>
+            <InputGroup
+              validate={inputValidation}
+              value={stock}
+              onChange={this.inputChange}
+              type="number"
+              name="stock"
+              label="Stock"
+            />
           </div>
         </Grid>
 
@@ -129,8 +247,22 @@ class ProductForm extends Component {
           {this.renderActionButtons}
         </Grid>
       </div>
-    )
+    );
   }
 }
 
-export default ProductForm;
+const mapStateToProps = ({ productStore: { products } }) => ({ products });
+
+const mapDispatchToProps = (dispatch) => ({
+  addProduct(product) {
+    dispatch(createProductAction(product));
+  },
+  updateProduct(product) {
+    dispatch(updateProductAction(product));
+  },
+  removeProduct(product) {
+    dispatch(deleteProductAction(product));
+  },
+});
+
+export default setStorage(mapStateToProps, mapDispatchToProps)(ProductForm);

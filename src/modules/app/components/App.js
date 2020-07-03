@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import { BrowserRouter, Router } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter, Router } from "react-router-dom";
+import { History, Routing } from "configs";
+import Provider from "store/Provider";
+import { reducers } from "store/reducers";
 
-import { History, Routing } from 'configs';
-
-
-class App extends Component {
-  render() {
-    return (
+function App() {
+  return (
+    <Provider reducer={reducers}>
       <Router history={History}>
-        <BrowserRouter basename={'/tiendanube'}>    
-          <Routing/>
+        <BrowserRouter basename={"/tiendanube"}>
+          <Routing />
         </BrowserRouter>
       </Router>
-    )
-  }
-};
+    </Provider>
+  );
+}
 
 export default App;

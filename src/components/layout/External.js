@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
- 
+import React, { Component } from "react";
+
 class External extends Component {
   render() {
     return (
@@ -7,7 +7,7 @@ class External extends Component {
         Login Layout
         {this.props.children}
       </div>
-    )
+    );
   }
 }
 

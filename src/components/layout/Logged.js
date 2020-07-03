@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { Header, Sidebar } from 'components/navigation';
-import { ListItemLink } from 'components/list';
+import { Header, Sidebar } from "components/navigation";
+import { ListItemLink } from "components/list";
 
 class Logged extends Component {
   render() {
@@ -9,11 +9,15 @@ class Logged extends Component {
       <div className="container">
         <Sidebar>
           <ul>
-            <ListItemLink to="/products" icon="list">Products listing</ListItemLink>
-            <ListItemLink to="/products/new" icon="add">Prodct add</ListItemLink>
+            <ListItemLink to="/products" icon="list">
+              Products listing
+            </ListItemLink>
+            <ListItemLink to="/products/new" icon="add">
+              Prodct add
+            </ListItemLink>
           </ul>
         </Sidebar>
-        
+
         <div className="main">
           <Header />
           <div className="content">
@@ -21,7 +25,7 @@ class Logged extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

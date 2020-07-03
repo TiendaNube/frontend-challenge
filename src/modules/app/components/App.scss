@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
-@import '~normalize.css';
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400");
+@import "~normalize.css";
 
 html,
 body,
 #app {
   -webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale;
   font-family: $font-face;
-  height: 100%;  
+  height: 100%;
   padding: 0;
   margin: 0;
   font-size: $font-size;
@@ -23,16 +23,16 @@ label {
   margin: 8px 0;
 }
 
-button:focus, input:focus {
-  outline:0;
+button:focus,
+input:focus {
+  outline: 0;
 }
-
 
 .ml--md {
   margin-left: 10px;
 }
 .mr--md {
-  margin-right: 10px;  
+  margin-right: 10px;
 }
 
 .mt--sm {
@@ -42,13 +42,12 @@ button:focus, input:focus {
   margin-top: 10px;
 }
 
-
 .ml--lg {
   margin-left: 20px;
 }
 .mr--lg {
-  margin-right: 20px;  
+  margin-right: 20px;
 }
 .mt--lg {
-  margin-top: 20px;  
+  margin-top: 20px;
 }

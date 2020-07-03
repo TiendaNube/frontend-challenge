@@ -3,7 +3,7 @@ input {
   padding: 12px;
   border-radius: $input-radius;
   &:focus {
-    border-color: $primary;  
+    border-color: $primary;
   }
 }
 
@@ -17,21 +17,21 @@ input {
     color: $danger;
   }
 
-  &.focus .input--group--block{
+  &.focus .input--group--block {
     border-color: $primary;
   }
 
   &.input--group__error {
     .editor {
-      border: 2px solid $danger!important;    
+      border: 2px solid $danger !important;
     }
 
     input {
-      border-color: $danger!important;      
+      border-color: $danger !important;
     }
-    
+
     .input--group--block {
-      border-color: $danger!important;
+      border-color: $danger !important;
     }
   }
 }

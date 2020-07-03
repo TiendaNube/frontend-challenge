@@ -14,7 +14,7 @@
 
   li {
     display: inline;
-    &+li:before {
+    & + li:before {
       padding: 8px;
       padding-right: 0px;
       color: black;
